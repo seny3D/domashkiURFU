@@ -238,14 +238,14 @@ function karasik(text, pats) {
             }
             cur = cur.next[chars];
         }
-        cur.out.push(pt.length) // получили короче длину слова, типо кот - 3, собака - 6
+        cur.out.push(pt.length) // получили короче длину слова, типо кот - 3, собака - 6, котик - 6. и короче по букве т пойдем
     }
 
     var queue = [];
 
     for (var chars in root.next) {
         if (root.next.hasOwnProperty(chars)) {
-            // WSH.Echo(chars); // первые буквы
+            // WSH.Echo(chars); // первые буквы. суффиксные ссылки тут
             var chid = root.next[chars];
             chid.fail = root;
             queue.push(chid);
@@ -282,18 +282,14 @@ function karasik(text, pats) {
 
     var start = time();
     cur = root;
-
     for (var i = 0; i < n; i++) {
         chars = text.charAt(i);
-
         while (cur != root && !cur.next[chars]) {
             cur = cur.fail;
         }
-
         if (cur.next[chars]) {
             cur = cur.next[chars];
         }
-
         if (cur.out.length > 0) {
             for (var k = 0; k < cur.out.length; k++) {
                 cnt += 1;
@@ -389,4 +385,3 @@ WSH.Echo(karasik(files,pattern));
 // var protoPats = ["constructor", "toString", "valueOf", "hasOwnProperty"];
 // WSH.Echo("Тест на свойства прототипа:");
 // WSH.Echo(karasik(protoText, protoPats));
-
